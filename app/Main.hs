@@ -8,5 +8,16 @@ import           Parsing
 import           Printing
 import           REPLCommand
 
+import Text.Parsec
+
 main :: IO ()
-main = undefined
+main = do
+  input <- readline "minihaskell"
+  case parse replCommand "<input>" input of
+    Left  err -> print err >> main
+    Right cmd -> case cmd of
+      Quit   -> return ()
+      Load _ -> putStrLn "Not implemented" >> main
+      Eval s -> case parse exprParser "<input>" s of
+        Left  err -> print err >> main
+        Right e   -> putStrLn (showExp e) >> main

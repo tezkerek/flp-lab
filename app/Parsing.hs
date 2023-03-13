@@ -72,12 +72,12 @@ listExp = List <$> brackets miniHs (commaSep miniHs expr)
 -- List [CX (Var {getVar = "a"}),CX (Var {getVar = "b"}),CX (Var {getVar = "c"})]
 
 natExp :: Parser ComplexExp
-natExp = Nat <$> fromInteger <$> (natural miniHs)
+natExp = Nat <$> fromInteger <$> natural miniHs
 -- >>> ghci> testParse natExp "223 a"
 -- Nat 223
 
 parenExp :: Parser ComplexExp
-parenExp = undefined
+parenExp = parens miniHs expr
 -- >>> ghci> testParse parenExp "(a)"
 -- CX (Var {getVar = "a"})
 
@@ -89,12 +89,14 @@ basicExp =
     <|> letrecExp
     <|> listExp
     <|> natExp
-    <|> parentExp
+    <|> parenExp
 -- >>> testParse basicExp "[a,b,c]"
 -- List [CX (Var {getVar = "a"}),CX (Var {getVar = "b"}),CX (Var {getVar = "c"})]
 
 expr :: Parser ComplexExp
-expr = varExp
+expr = do
+  e <- some basicExp
+  return $ foldl1 CApp e
 -- >>> testParse expr "\\x -> [x,y,z]"
 -- CLam (Var {getVar = "x"}) (List [CX (Var {getVar = "x"}),CX (Var {getVar = "y"}),CX (Var {getVar = "z"})])
 
