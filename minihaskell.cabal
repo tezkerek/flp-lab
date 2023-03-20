@@ -61,7 +61,7 @@ executable minihaskell
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    other-modules:    Parsing Printing
+    other-modules:    Parsing Printing Sugar Exp Eval
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:

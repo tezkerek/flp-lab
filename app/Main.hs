@@ -3,12 +3,14 @@ module Main where
 import           System.Console.Isocline
 import           System.IO
 
+import           Eval
 import           Exp
 import           Parsing
 import           Printing
 import           REPLCommand
+import           Sugar
 
-import Text.Parsec
+import           Text.Parsec
 
 main :: IO ()
 main = do
