@@ -19,7 +19,10 @@ data IndexedVar = IndexedVar
   { ivName  :: String
   , ivCount :: Int
   }
-  deriving (Eq, Read, Show)
+  deriving (Eq, Read)
+
+instance Show IndexedVar where
+  show iv = ivName iv ++ "_" ++ show (ivCount iv)
 
 makeIndexedVar :: String -> IndexedVar
 makeIndexedVar name = IndexedVar name 0
@@ -28,4 +31,4 @@ data Exp
   = X IndexedVar
   | Lam IndexedVar Exp
   | App Exp Exp
-  deriving (Show)
+  deriving (Show, Eq)
