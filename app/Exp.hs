@@ -19,7 +19,7 @@ data IndexedVar = IndexedVar
   { ivName  :: String
   , ivCount :: Int
   }
-  deriving (Eq, Read)
+  deriving (Eq, Read, Ord)
 
 instance Show IndexedVar where
   show iv = ivName iv ++ "_" ++ show (ivCount iv)

@@ -11,7 +11,7 @@ import           Text.ParserCombinators.Parsec.Token
 
 miniHaskellDef :: LanguageDef st
 miniHaskellDef = haskellStyle { reservedNames   = ["let", "letrec", "in"]
-                              , reservedOpNames = ["\\", "->", ":="]
+                              , reservedOpNames = ["\\", "->", ":=", ":", ";"]
                               }
 
 miniHs :: TokenParser st
